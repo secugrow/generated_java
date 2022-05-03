@@ -28,8 +28,6 @@ public class RemoteChromeDriverFactory extends RemoteWebDriverFactory {
         options.setCapability(CapabilityType.BROWSER_VERSION, getBrowserVersion());
         options.setCapability(CapabilityType.PLATFORM_NAME, Platform.LINUX);
 
-
-
         URL gridServer = null;
         try {
             gridServer = URI.create(getRemoteTestingServer() + "/wd/hub").toURL();
@@ -37,6 +35,6 @@ public class RemoteChromeDriverFactory extends RemoteWebDriverFactory {
             e.printStackTrace();
         }
 
-        return webDriver = new RemoteWebDriver(gridServer, options);
+        return webDriver = new RemoteWebDriver(gridServer, options.merge(caps));
     }
 }
