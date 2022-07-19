@@ -19,7 +19,6 @@ If you have actions which change the page your last stagement in your function s
 
 If doing like this, the currentPage is set correctly, and you can access the page in your step files with getPage(PageObject.class)
 
-## Building the archetype
 
 - make sure you're in the root of the Project(where the pom.xml is located) and do:
   ```shell
