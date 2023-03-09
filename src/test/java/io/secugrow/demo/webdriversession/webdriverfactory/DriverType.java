@@ -4,7 +4,6 @@ public enum DriverType {
     CHROME,
     CHROME_MOBILE_EMULATION,
     FIREFOX,
-    OPERA,
     EDGE,
     IE,
     REMOTE_CHROME,

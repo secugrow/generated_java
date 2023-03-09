@@ -1,5 +1,8 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="secugrowTestArchetype firefox" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java">
+    <envs>
+      <env name="TMPDIR" value="$USER_HOME$/TMP_FIREFOX" />
+    </envs>
     <option name="FILE_PATH" value="$PROJECT_DIR$/src/test/resources/features" />
     <option name="GLUE" value="io.secugrow.demo.stepdefinitions" />
     <option name="MAIN_CLASS_NAME" value="io.cucumber.core.cli.Main" />
