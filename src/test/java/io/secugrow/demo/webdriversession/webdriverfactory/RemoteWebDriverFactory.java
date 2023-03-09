@@ -3,6 +3,7 @@ package io.secugrow.demo.webdriversession.webdriverfactory;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class RemoteWebDriverFactory extends WebDriverFactory {
@@ -21,11 +22,11 @@ public class RemoteWebDriverFactory extends WebDriverFactory {
         String providerName = System.getProperty("remote.options", "selenoid");
         String executionTag = System.getProperty("execution.tag", "exection.tag not set");
 
-        Map<String, Object> providerOptions() = Map<String, Object>of(
-                "name", executionTag,
-                "enableVNC", true
-                //FIXME more are missing here
-        );
+        Map<String, Object> providerOptions = new HashMap<>(
+                Map.of(
+                        "name", executionTag,
+                        "enableVNC", true
+                ));
 
         caps.setCapability(providerName + ":options", providerOptions);
 
