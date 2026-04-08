@@ -2,10 +2,13 @@ package io.secugrow.demo.webdriversession.webdriverfactory;
 
 public enum DriverType {
     CHROME,
+    CHROMIUM,
     CHROME_MOBILE_EMULATION,
+    LOCAL_CHROME_MOBILE_EMULATION,
+    REMOTE_CHROME_MOBILE,
+    REMOTE_CHROME_MOBILE_EMULATION,
     FIREFOX,
     EDGE,
-    IE,
     REMOTE_CHROME,
     REMOTE_FIREFOX,
     REMOTE_ANDROID,

@@ -1,7 +1,7 @@
 package io.secugrow.demo.utils;
 
 import io.secugrow.demo.webdriversession.webdriverfactory.DriverType;
-import io.cucumber.java8.Scenario;
+import io.cucumber.java.Scenario;
 import org.apache.commons.lang3.tuple.Pair;
 import org.assertj.core.api.SoftAssertions;
 
@@ -46,6 +46,10 @@ public class TestDataContainer {
         testDataMap.put(Keys.TEST_ID.getKeyValue(), "init");
     }
 
+    public Integer getStepIndex() {
+        return getAs(Keys.STEP_INDEX.key, Integer.class);
+    }
+
     public String getTestId() {
         return getAs(Keys.TEST_ID.getKeyValue(), String.class);
     }
@@ -54,12 +58,6 @@ public class TestDataContainer {
         testDataMap.put(Keys.SCENARIO.key, scenario);
         testDataMap.put(Keys.TEST_ID.key, extractTestIdFromScenarioName(scenario));
     }
-
-    
-    public boolean doA11YCheck() {
-        return !getAs(Keys.SKIP_A11Y.key, Boolean.class);
-    }
-    
 
     public void incrementStepIndex() {
         int stepIndex = getAs("stepIndex", Integer.class);
@@ -147,26 +145,12 @@ public class TestDataContainer {
         setScreenshots(Keys.SCREENSHOTS, screenshots);
     }
 
-
-    
-    public void addA11ydescription(String violationString) {
-        addStringtoList("a11y.description", violationString);
-    }
-
-    public SoftAssertions getSoftAssertionObject() {
-        return (SoftAssertions) testDataMap.get("softAssertion.object");
-    }
-
-    
-
-
     private void addStringtoList(String key, String stringToAdd) {
         if (testDataMap.containsKey(key)) {
             ArrayList<String> list = getAs(key, ArrayList.class);
             list.add(stringToAdd);
             testDataMap.put(key, list);
-        }
-        else {
+        } else {
             ArrayList<String> newList = new ArrayList<>();
             newList.add(stringToAdd);
             setTestDataList(key, newList);
@@ -189,43 +173,42 @@ public class TestDataContainer {
     }
 
 
-
     
-    /*
-    Missing features from kotlin archetype
 
+    public boolean doA11YCheck() {
+        return !getAs(Keys.SKIP_A11Y.key, Boolean.class);
+    }
+    public void addA11ydescription(String violationString) {
+        addStringtoList("a11y.description", violationString);
+    }
+    public SoftAssertions getSoftAssertionObject() {
+        return (SoftAssertions) testDataMap.get("softAssertion.object");
+    }
 
-
-
-    fun getScreenshots(): MutableList<Pair<ByteArray, String>> = getScreenshotArrayFromTestDataMap()
-
-    private fun getScreenshotArrayFromTestDataMap(): MutableList<Pair<ByteArray, String>> {
-        return when (testDataMap.containsKey(SCREENSHOTS)) {
-            true -> getAs(SCREENSHOTS)
-            false -> mutableListOf()
+    public ArrayList<Pair<byte[], String>> getScreenshotsList() {
+        if (testDataMap.containsKey(Keys.SCREENSHOTS.key)) {
+            return getAs(Keys.SCREENSHOTS.key, ArrayList.class);
+        } else {
+            return new ArrayList<>();
         }
     }
 
-
-
-    fun hasSoftAssertions() = getAs<Boolean>("softAssertions.present")
-
-
-
-    fun getAndClearA11Ydescriptions(): List<String> {
-        val descriptions = getA11yDescription()
-        testDataMap.replace("a11y.description", mutableListOf<String>())
-        return descriptions
+    public boolean hasSoftAssertions() {
+        return getAs("softAssertions.present", Boolean.class);
     }
 
-    fun getA11yDescription(): List<String> {
-        when (testDataMap.containsKey("a11y.description")) {
-            true -> return getAs("a11y.description")
-            false -> return emptyList()
+    public List<String> getAndClearA11YDescriptions() {
+        List<String> descriptions = getA11yDescription();
+        testDataMap.replace("a11y.description", new ArrayList<String>());
+        return descriptions;
+    }
+
+    public List<String> getA11yDescription() {
+        if (testDataMap.containsKey("a11y.description")) {
+            return getAs("a11y.description", List.class);
+        } else {
+            return new ArrayList<>();
         }
     }
-
-}
-     */
     
 }

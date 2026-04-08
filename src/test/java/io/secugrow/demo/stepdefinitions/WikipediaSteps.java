@@ -3,13 +3,9 @@ package io.secugrow.demo.stepdefinitions;
 import io.secugrow.demo.pageobjects.WikipediaContentPage;
 import io.secugrow.demo.pageobjects.WikipediaStartPage;
 import io.secugrow.demo.utils.TestDataContainer;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import java.time.Duration;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class WikipediaSteps extends AbstractStepDefs {
 
@@ -26,14 +22,14 @@ public class WikipediaSteps extends AbstractStepDefs {
 
         Then("the searchbar is visible", () -> {
             WebElement searchbar = getPage(WikipediaStartPage.class).getSearchbar();
-            assertTrue(searchbar.isEnabled());
+            assertThat(searchbar.isEnabled()).isTrue();
         });
 
         When("the Selenium page is opened", () -> {
             getPage(WikipediaStartPage.class).searchFor("Selenium");
         });
 
-        Then("the header should be {string}", (String expected_header) -> assertEquals(expected_header, getPage(WikipediaContentPage.class).getHeader()));
+        Then("the header should be {string}", (String expected_header) -> assertThat(expected_header).isEqualTo(getPage(WikipediaContentPage.class).getHeader()));
 
     }
 }
